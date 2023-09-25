@@ -14,7 +14,7 @@ namespace blogpessoal.Validator
 
             RuleFor(p => p.Texto)
                 .NotEmpty()
-                .MinimumLength(100)
+                .MinimumLength(10)
                 .MaximumLength(1000);
         }
     }
