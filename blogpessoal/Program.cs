@@ -17,7 +17,11 @@ namespace blogpessoal
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(opitions =>
+                {
+                    opitions.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             //Conexão com o banco de dados
             var connectionString = builder.Configuration
@@ -30,12 +34,14 @@ namespace blogpessoal
 
             // Registrar a validação das Entidades
             builder.Services.AddTransient<IValidator<Postagem>, PostagemValidator>();
+            builder.Services.AddTransient<IValidator<Tema>, TemaValidator>();
 
 
             // Regsitrar as classes de serviço (Service)
             builder.Services.AddScoped<IPostagemService, PostagemService>();
+            builder.Services.AddScoped<ITemaService, TemaService>();
 
-            
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

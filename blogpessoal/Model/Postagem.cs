@@ -1,5 +1,4 @@
-﻿using blogpessoal.Model;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace blogpessoal.Model
@@ -15,8 +14,10 @@ namespace blogpessoal.Model
         public string Titulo { get; set; } = string.Empty;
 
         [Column(TypeName = "varchar")]
-        [StringLength(100)]
+        [StringLength(1000)]
         public string Texto { get; set; } = string.Empty;
 
+
+        public virtual Tema? Tema { get; set; }
     }
 }
