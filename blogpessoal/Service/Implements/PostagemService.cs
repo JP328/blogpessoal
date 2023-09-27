@@ -55,9 +55,7 @@ namespace blogpessoal.Service.Implements
                 if (VerificarTema is null)
                     return null;
 
-                //postagem.Tema = _context.Temas.FirstOrDefault(t => t.Id == postagem.Tema.Id);
                 postagem.Tema = VerificarTema;
-
             }
 
             await _context.Postagens.AddAsync(postagem);
