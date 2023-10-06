@@ -9,6 +9,7 @@ using blogpessoal.Validator;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -23,9 +24,10 @@ namespace blogpessoal
             // Add services to the container.
 
             builder.Services.AddControllers()
-                .AddNewtonsoftJson(opitions =>
+                .AddNewtonsoftJson(options =>
                 {
-                    opitions.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 });
 
             //Conexão com o banco de dados

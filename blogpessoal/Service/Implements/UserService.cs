@@ -37,16 +37,12 @@ namespace blogpessoal.Service.Implements
 
         public async Task<User?> GetByUser(string usuario)
         {
-            //try
-            //{
-                var BuscaUsuario = await _context.Users
-                    .Include(u => u.Postagem)
-                    .Where(u => u.Usuario == usuario)
-                    .FirstOrDefaultAsync();
+            var BuscaUsuario = await _context.Users
+                .Include(u => u.Postagem)
+                .Where(u => u.Usuario == usuario)
+                .FirstOrDefaultAsync();
 
-                return BuscaUsuario;
-            //}
-            //catch { return null; }
+            return BuscaUsuario;
         }
 
         public async Task<User?> Create(User usuario)
