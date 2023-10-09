@@ -164,12 +164,7 @@ namespace blogpessoal
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog Pessoal - v1");
                     options.RoutePrefix = string.Empty;
                 });
-
             }
-            //else
-            //{
-            //    app.UseSwaggerUI();
-            //}
             
             //Inicializa o CORT
             app.UseCors("MyPolicy");
