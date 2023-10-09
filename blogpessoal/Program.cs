@@ -34,7 +34,7 @@ namespace blogpessoal
                 });
 
             //Conexão com o banco de dados
-            if (builder.Configuration["Environment: Start"] == "PROD")
+            if (builder.Configuration["Enviroment:Start"] == "PROD")
             {
                 builder.Configuration
                     .SetBasePath(Directory.GetCurrentDirectory())
@@ -53,7 +53,7 @@ namespace blogpessoal
                     .GetConnectionString("DefaultConnection");
 
                 builder.Services.AddDbContext<AppDbContext> (options =>
-                    options.UseSqlServer (connectionString)
+                    options.UseSqlServer(connectionString)
                 );
             }
 
@@ -146,22 +146,26 @@ namespace blogpessoal
 
             var app = builder.Build();
 
-            //Criar o banco de dados e as tabelas
+            //Criar o banco de dados e as tabelas automaticamente
             using(var scope = app.Services.CreateAsyncScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 dbContext.Database.EnsureCreated();
             }
 
-            // Configure the HTTP request pipeline.
+
+            app.UseDeveloperExceptionPage();
+
+            // Habilitar o Swagger
             app.UseSwagger();
-            
+            app.UseSwaggerUI();
+
             //Abrir o Swagger como página inicial na nuvem, quando em produção
             if (app.Environment.IsProduction())
             {
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog Pessoal - v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog Pessoal - V1");
                     options.RoutePrefix = string.Empty;
                 });
             }
@@ -169,11 +173,12 @@ namespace blogpessoal
             //Inicializa o CORT
             app.UseCors("MyPolicy");
 
+            //Habilitar a autenticação e autorização
             app.UseAuthentication();
 
             app.UseAuthorization();
 
-
+            //Habilitar Controller
             app.MapControllers();
 
             app.Run();
