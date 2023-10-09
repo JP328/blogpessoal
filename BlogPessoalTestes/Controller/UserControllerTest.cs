@@ -186,6 +186,5 @@ namespace BlogPessoalTestes.Controller
 
             resposta.StatusCode.Should().Be(HttpStatusCode.OK);
         }
-
     }
 }
