@@ -27,6 +27,7 @@ namespace blogpessoal.Service.Implements
             try
             {
                 var Postagem = await _context.Postagens
+                    .AsNoTracking()
                     .Include(p => p.Usuario)
                     .Include(p => p.Tema)
                     .FirstAsync(i => i.Id == id);
@@ -41,9 +42,11 @@ namespace blogpessoal.Service.Implements
         public async Task<IEnumerable<Postagem>> GetByTitulo(string titulo)
         {
             var Postagem = await _context.Postagens
+                .AsNoTracking()
                 .Include(p => p.Usuario)
                 .Include(p => p.Tema)
-                .Where(p => p.Titulo.Contains(titulo))
+                .Where(p => p.Titulo.ToUpper()
+                    .Contains(titulo.ToUpper()))
                 .ToListAsync();
 
             return Postagem;

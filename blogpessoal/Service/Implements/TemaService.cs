@@ -6,7 +6,6 @@ namespace blogpessoal.Service.Implements
 {
     public class TemaService : ITemaService
     {
-
         private readonly AppDbContext _context;
 
         public TemaService (AppDbContext context)
@@ -36,7 +35,8 @@ namespace blogpessoal.Service.Implements
         {
             var Tema = await _context.Temas
                 .Include(t => t.Postagem)
-                .Where(t => t.Descricao.Contains(descricao))
+                .Where(t => t.Descricao.ToUpper()
+                    .Contains(descricao.ToUpper()))
                 .ToListAsync();
 
             return Tema;
