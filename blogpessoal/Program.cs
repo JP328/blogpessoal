@@ -1,4 +1,3 @@
-
 using blogpessoal.Configuration;
 using blogpessoal.Data;
 using blogpessoal.Model;
