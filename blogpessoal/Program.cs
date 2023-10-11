@@ -145,8 +145,11 @@ namespace blogpessoal
 
             var app = builder.Build();
 
+            // habilita a compatibilidade com o tipo de dado DateTimeOffset no Banco de dados PostgreSQL
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             //Criar o banco de dados e as tabelas automaticamente
-            using(var scope = app.Services.CreateAsyncScope())
+            using (var scope = app.Services.CreateAsyncScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 dbContext.Database.EnsureCreated();
