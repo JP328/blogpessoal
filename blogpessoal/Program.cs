@@ -134,7 +134,7 @@ namespace blogpessoal
             //configuração do CORS
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(name: "MyPolice",
+                options.AddPolicy(name: "MyPolicy",
                     policy =>
                     {
                         policy.AllowAnyOrigin()
